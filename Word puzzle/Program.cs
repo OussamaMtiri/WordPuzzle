@@ -15,7 +15,7 @@ namespace Word_puzzle
             inputOutputService.GetWords();
         }
 
-        static IInputOutputService Setup()
+        static IGetWordsService Setup()
         {
             var builder = new ConfigurationBuilder()
              .SetBasePath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName)
@@ -24,12 +24,12 @@ namespace Word_puzzle
             var serviceProvider = new ServiceCollection()
                  //.AddLogging()
                  .AddTransient<Argument>()
-                 .AddTransient<IInputOutputService, GetWordsService>()
-                 .AddTransient<ISearchService, SearchService>()
+                 .AddTransient<IGetWordsService, GetWordsService>()
+                 .AddTransient<ILoadTextGetWordsService, LoadTextGetWordsService>()
                  .Configure<MySettings>(config.GetSection("MySettings"))
                 .BuildServiceProvider();
 
-            return serviceProvider.GetService<IInputOutputService>();
+            return serviceProvider.GetService<IGetWordsService>();
         }
     }
 }

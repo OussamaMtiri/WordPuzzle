@@ -8,21 +8,20 @@ using Word_puzzle.Models;
 
 namespace Word_puzzle.Services
 {
-    public class SearchService : ISearchService
+    public class LoadTextGetWordsService : ILoadTextGetWordsService
     {
         private readonly MySettings _configuration;
-        public SearchService(IOptions<MySettings> options)
+        public LoadTextGetWordsService(IOptions<MySettings> options)
         {
             _configuration = options.Value;
         }
 
-        public string[] LoadFileAndSearch(Argument argument)
+        public string[] LoadTextAndGetWordsList(Argument argument)
         {
             try
             {
-                var wordsArray = LoadTextAndGetList();
-                //Example of Tuple
-                return Search((argument, wordsArray));
+                var wordsArray = LoadText();
+                return GetWordsList((argument, wordsArray));
             }
             catch (Exception e)
             {
@@ -31,22 +30,20 @@ namespace Word_puzzle.Services
             }
         }
 
-        public string[] LoadTextAndGetList() => File.ReadAllLines($"{_configuration.DataSource}\\{_configuration.DictionaryFile}");
+        public string[] LoadText() => File.ReadAllLines($"{_configuration.DataSource}\\{_configuration.DictionaryFile}");
 
-        public string[] Search((Argument Argument, string[] WordsArray) tuple)
-        {
+        public string[] GetWordsList((Argument Argument, string[] WordsArray) tuple)
+        {    //Example of Tuple(Not Needed)
             Argument argument = tuple.Argument;
             string[] wordsArray = tuple.WordsArray;
             int indexStartWord = Array.IndexOf(wordsArray, argument.StartWord);
             int indexEndWord = Array.IndexOf(wordsArray, argument.EndWord);
             wordsArray = wordsArray.Skip(indexStartWord).Take(indexEndWord - indexStartWord + 1).Where(w => w.Length == 4).ToArray();
-
             List<string> result = new() { argument.StartWord };
             foreach (var item in wordsArray)
             {
                 result.Add(wordsArray.Skip(Array.IndexOf(wordsArray, item)).Where(w => item.Except(w).Count() == 1).Last());
-                if (result.Last() == argument.EndWord) //
-                                                       //TODO
+                if (result.Last() == argument.EndWord)
                     break;
             }
             return result.ToArray();

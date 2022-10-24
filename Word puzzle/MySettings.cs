@@ -1,6 +1,6 @@
 ﻿namespace Word_puzzle
 {
-    public  class MySettings
+    public class MySettings
     {
         public string DictionaryFile { get; set; }
         public string ResultFolderName { get; set; }

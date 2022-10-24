@@ -6,13 +6,13 @@ using Word_puzzle.Models;
 
 namespace Word_puzzle.Services
 {
-    class GetWordsService : IInputOutputService
+    public class GetWordsService : IGetWordsService
     {
-        private readonly ISearchService _searchService;
+        private readonly ILoadTextGetWordsService _searchService;
         private readonly Argument _argument;
         private readonly MySettings _configuration;
 
-        public GetWordsService(ISearchService searchService, Argument argument, IOptions<MySettings> options)
+        public GetWordsService(ILoadTextGetWordsService searchService, Argument argument, IOptions<MySettings> options)
         {
             _configuration = options.Value;
             _searchService = searchService;
@@ -24,14 +24,15 @@ namespace Word_puzzle.Services
             try
             {
                 UserInteration();
-                var result = _searchService.LoadFileAndSearch(_argument);
-                WriteOutput(result);
+                var result = _searchService.LoadTextAndGetWordsList(_argument);
+                WriteResultToFile(result);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
         }
+
         public void UserInteration()
         {
             Console.WriteLine("Please input start word");
@@ -47,7 +48,7 @@ namespace Word_puzzle.Services
             _argument.ResultFile = "res";
         }
 
-        public void WriteOutput(string[] results)
+        public void WriteResultToFile(string[] results)
         {
             if (!Directory.Exists(_configuration.ResultFolderName))
                 Directory.CreateDirectory(_configuration.ResultFolderName);
