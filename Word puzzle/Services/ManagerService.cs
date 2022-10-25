@@ -23,7 +23,7 @@ namespace Word_puzzle.Services
             _userInputInteraction = userInputInteraction;   
         }
 
-        public void GetWords()
+        public void Manager()
         {
             try
             {

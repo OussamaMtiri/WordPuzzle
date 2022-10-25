@@ -2,6 +2,6 @@
 {
     public interface IGetWordsService
     {
-        public void GetWords();
+        public void Manager();
     }
 }

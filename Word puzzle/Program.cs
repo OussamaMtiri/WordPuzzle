@@ -13,8 +13,8 @@ namespace Word_puzzle
     {
         public static void Main()
         {
-            var inputOutputService = Setup();
-            inputOutputService.GetWords();
+            var managerService = Setup();
+            managerService.Manager();
         }
 
         static IGetWordsService Setup()
