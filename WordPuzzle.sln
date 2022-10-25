@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32929.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordPuzzle", "Word puzzle\WordPuzzle.csproj", "{09A06C5B-E822-4B8D-98E3-BB2865D6F456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordPuzzleTests", "WordPuzzleTests\WordPuzzleTests.csproj", "{2EE2FF47-4CCA-4068-A00C-F26F9E86AABC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordPuzzleTests", "WordPuzzleTests\WordPuzzleTests.csproj", "{2EE2FF47-4CCA-4068-A00C-F26F9E86AABC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

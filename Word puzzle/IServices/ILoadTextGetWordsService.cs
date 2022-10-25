@@ -4,8 +4,7 @@ namespace Word_puzzle.IServices
 {
     public interface ILoadTextGetWordsService
     {
-        string[] LoadTextAndGetWordsList(Argument argument);
-        public string[] LoadText();
+        public string[] LoadTextAndGetWordsList(Argument argument);
         public string[] GetWordsList((Argument Argument, string[] WordsArray) tuple);
     }
 }

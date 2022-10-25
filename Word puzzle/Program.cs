@@ -2,8 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using Word_puzzle.IServices;
+using Word_puzzle.ITools;
 using Word_puzzle.Models;
 using Word_puzzle.Services;
+using Word_puzzle.Tools;
 
 namespace Word_puzzle
 {
@@ -24,8 +26,10 @@ namespace Word_puzzle
             var serviceProvider = new ServiceCollection()
                  //.AddLogging()
                  .AddTransient<Argument>()
-                 .AddTransient<IGetWordsService, GetWordsService>()
+                 .AddTransient<IGetWordsService, ManagerService>()
                  .AddTransient<ILoadTextGetWordsService, LoadTextGetWordsService>()
+                 .AddTransient<IFilesInputOutput, FilesInputOutput>()
+                 .AddTransient<IUserInputInteraction ,UserInputInteraction >()
                  .Configure<MySettings>(config.GetSection("MySettings"))
                 .BuildServiceProvider();
 

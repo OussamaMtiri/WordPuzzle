@@ -4,10 +4,15 @@ namespace Word_puzzle.Models
 {
     public class Argument
     {
-        [StringLength(4, ErrorMessage = "Max Length is 4")] //TODO
+        [Required]
+        [StringLength(4, MinimumLength = 4)]
         public string StartWord { get; set; }
-        [MaxLength(4)]
+
+        [Required]
+        [StringLength(4,  MinimumLength = 4)]
         public string EndWord { get; set; }
+
+        [Required]
         public string ResultFile { get; set; }
     }
 }

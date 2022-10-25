@@ -1,36 +1,34 @@
-﻿using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Word_puzzle.IServices;
+using Word_puzzle.ITools;
 using Word_puzzle.Models;
+using Word_puzzle.Tools;
 
 namespace Word_puzzle.Services
 {
     public class LoadTextGetWordsService : ILoadTextGetWordsService
     {
-        private readonly MySettings _configuration;
-        public LoadTextGetWordsService(IOptions<MySettings> options)
+       private readonly IFilesInputOutput _filesInputOutput;
+        public LoadTextGetWordsService(IFilesInputOutput filesInputOutput)
         {
-            _configuration = options.Value;
+           _filesInputOutput = filesInputOutput;    
         }
 
         public string[] LoadTextAndGetWordsList(Argument argument)
         {
             try
             {
-                var wordsArray = LoadText();
+                var wordsArray =_filesInputOutput.LoadText();
                 return GetWordsList((argument, wordsArray));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                ExceptionHandling.ExceptionHandlingCatching(e);
                 return null;
             }
         }
-
-        public string[] LoadText() => File.ReadAllLines($"{_configuration.DataSource}\\{_configuration.DictionaryFile}");
 
         public string[] GetWordsList((Argument Argument, string[] WordsArray) tuple)
         {    //Example of Tuple(Not Needed)
