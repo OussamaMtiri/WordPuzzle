@@ -1,6 +1,6 @@
-﻿using Word_puzzle.Models;
+﻿using WordPuzzle.Models;
 
-namespace Word_puzzle.IServices
+namespace WordPuzzle.IServices
 {
     public interface ILoadTextGetWordsService
     {

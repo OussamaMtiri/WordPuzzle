@@ -4,20 +4,20 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Word_puzzle.IServices;
-using Word_puzzle.Models;
+using WordPuzzle.IServices;
+using WordPuzzle.Models;
 
-namespace Word_puzzle.Services
+namespace WordPuzzle.Services
 {
-    public class UserInputInteraction : IUserInputInteraction
+    public class UserInputServices : IUserInputInteraction
     {
         private readonly Argument _argument;
-        public UserInputInteraction(Argument argument)
+        public UserInputServices(Argument argument)
         {
             _argument = argument;
         }
 
-        public void GetUserArguments()
+        public Argument GetUserArguments()
         {
             Console.WriteLine("Please input start word");
             //_argument.StartWord = Console.ReadLine();
@@ -30,9 +30,10 @@ namespace Word_puzzle.Services
             Console.WriteLine("Please input result file name");
             //_argument.ResultFile = Console.ReadLine();
             _argument.ResultFile = "dd";
+            return _argument;
         }
 
-        public bool UserArgumentsValidation()
+        public bool UserArgumentsValidation(Argument _argument)
         {
             var context = new ValidationContext(_argument, null, null);
             var validationResult = new List<ValidationResult>();

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordPuzzle.Models;
 
-namespace Word_puzzle.IServices
+namespace WordPuzzle.IServices
 {
     public interface IUserInputInteraction
     {
-        public void GetUserArguments();
-        public bool UserArgumentsValidation();
+        public Argument GetUserArguments();
+        public bool UserArgumentsValidation(Argument argument);
     }
 }

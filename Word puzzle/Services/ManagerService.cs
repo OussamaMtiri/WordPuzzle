@@ -1,34 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Word_puzzle.IServices;
-using Word_puzzle.ITools;
-using Word_puzzle.Models;
-using Word_puzzle.Tools;
+using WordPuzzle.IServices;
+using WordPuzzle.ITools;
+using WordPuzzle.Models;
+using WordPuzzle.Tools;
 
-namespace Word_puzzle.Services
+namespace WordPuzzle.Services
 {
-    public class ManagerService : IGetWordsService
+    public class ManagerService : IManagerService
     {
         private readonly ILoadTextGetWordsService _searchService;
-        private readonly Argument _argument;
         private readonly IFilesInputOutput _filesInputOutput;
         private readonly IUserInputInteraction _userInputInteraction;
+    
 
-        public ManagerService(ILoadTextGetWordsService searchService, Argument argument, IFilesInputOutput filesInputOutput, IUserInputInteraction userInputInteraction)
+
+        public ManagerService(ILoadTextGetWordsService searchService, IFilesInputOutput filesInputOutput, IUserInputInteraction userInputInteraction)
         {
             _searchService = searchService;
-            _argument = argument;
             _filesInputOutput = filesInputOutput;
-            _userInputInteraction = userInputInteraction;   
+            _userInputInteraction = userInputInteraction;
+
         }
 
-        public void Manager()
+        public void GetWords()
         {
             try
             {
-                _userInputInteraction.GetUserArguments();
-                if (!_userInputInteraction.UserArgumentsValidation())
+                //throw new ArgumentNullException();
+                Argument _argument=_userInputInteraction.GetUserArguments();
+                if (!_userInputInteraction.UserArgumentsValidation(_argument))
                     return;
                 var result = _searchService.LoadTextAndGetWordsList(_argument);
                 _filesInputOutput.WriteResultToFile(result);

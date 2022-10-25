@@ -1,8 +1,12 @@
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
-using Word_puzzle;
-using Word_puzzle.Models;
-using Word_puzzle.Services;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using WordPuzzle;
+using WordPuzzle.Models;
+using WordPuzzle.Services;
+using WordPuzzle.Tools;
 
 namespace WordPuzzleTests
 {
@@ -12,29 +16,41 @@ namespace WordPuzzleTests
         public void LoadText()
         {
             //Arrange
-            var options = Options.Create(new MySettings() { DataSource = "DataSource", DictionaryFile = "words-english.txt", ResultFolderName = "ResultFolder" });
-            var searchService = new LoadTextGetWordsService(options);
+            var options = GetAppSettingOptions();
+
+            var filesInputOutput = new FilesInputOutput(options, new Argument());
 
             //Act
-            var wordsArray = searchService.LoadText();
+            var wordsArray = filesInputOutput.LoadText();
 
             //Assert
-            Assert.AreEqual(26880, wordsArray.Length);           
+            Assert.AreEqual(26880, wordsArray.Length);
         }
 
         [Test]
         public void GetWordsList()
         {
             //Arrange
-            var options = Options.Create(new MySettings() { DataSource = "DataSource", DictionaryFile = "words-english.txt", ResultFolderName = "ResultFolder" });
-            var searchService = new LoadTextGetWordsService(options);
-            var wordsArray = searchService.LoadText();
+            var options = GetAppSettingOptions();
+            Argument argument = new() { StartWord = "spin", EndWord = "spot", ResultFile = "res" };
+            LoadTextGetWordsService loadTextGetWordsService = new(new FilesInputOutput(options, argument));
 
             //Act
-            var Array = searchService.GetWordsList((new Argument { StartWord = "spin", EndWord = "spot", ResultFile = "res" }, wordsArray));
+            var Array = loadTextGetWordsService.LoadTextAndGetWordsList(argument);
 
             //Assert
             Assert.AreEqual(3, Array.Length);
+        }
+
+
+
+
+        public static IOptions<MySettings> GetAppSettingOptions()
+        {
+            string appsettingsJson = File.ReadAllText($"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\appsettingsTest.json");
+            var mySetting = JsonSerializer.Deserialize<MySettings>(appsettingsJson);
+            return Options.Create(mySetting);
+            
         }
     }
 }

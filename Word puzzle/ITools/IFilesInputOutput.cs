@@ -1,4 +1,4 @@
-﻿namespace Word_puzzle.ITools
+﻿namespace WordPuzzle.ITools
 {
     public interface IFilesInputOutput
     {

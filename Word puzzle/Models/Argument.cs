@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Word_puzzle.Models
+namespace WordPuzzle.Models
 {
     public class Argument
     {

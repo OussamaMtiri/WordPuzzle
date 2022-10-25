@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
 using System;
 using System.IO;
-using Word_puzzle.ITools;
-using Word_puzzle.Models;
+using WordPuzzle.ITools;
+using WordPuzzle.Models;
 
-namespace Word_puzzle.Tools
+namespace WordPuzzle.Tools
 {
     public class FilesInputOutput : IFilesInputOutput
     {
@@ -30,6 +30,7 @@ namespace Word_puzzle.Tools
             catch (Exception e)
             {
                 ExceptionHandling.ExceptionHandlingCatching(e);
+                return; 
             }
             finally
             {

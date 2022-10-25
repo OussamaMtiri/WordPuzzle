@@ -1,4 +1,4 @@
-﻿namespace Word_puzzle
+﻿namespace WordPuzzle
 {
     public class MySettings
     {

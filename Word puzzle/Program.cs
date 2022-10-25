@@ -1,39 +1,42 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using System.IO;
-using Word_puzzle.IServices;
-using Word_puzzle.ITools;
-using Word_puzzle.Models;
-using Word_puzzle.Services;
-using Word_puzzle.Tools;
+using WordPuzzle.IServices;
+using WordPuzzle.ITools;
+using WordPuzzle.Models;
+using WordPuzzle.Services;
+using WordPuzzle.Tools;
 
-namespace Word_puzzle
+namespace WordPuzzle
 {
     class Program
     {
         public static void Main()
         {
             var managerService = Setup();
-            managerService.Manager();
+            managerService.GetWords();
         }
 
-        static IGetWordsService Setup()
+        static IManagerService Setup()
         {
             var builder = new ConfigurationBuilder()
              .SetBasePath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName)
              .AddJsonFile("appsettings.json");
             var config = builder.Build();
-            var serviceProvider = new ServiceCollection()
-                 //.AddLogging()
+            var serviceProvider = new ServiceCollection()           
                  .AddTransient<Argument>()
-                 .AddTransient<IGetWordsService, ManagerService>()
+                 .AddTransient<IManagerService, ManagerService>()
                  .AddTransient<ILoadTextGetWordsService, LoadTextGetWordsService>()
                  .AddTransient<IFilesInputOutput, FilesInputOutput>()
-                 .AddTransient<IUserInputInteraction ,UserInputInteraction >()
-                 .Configure<MySettings>(config.GetSection("MySettings"))
-                .BuildServiceProvider();
+                 .AddTransient<IUserInputInteraction, UserInputServices>()
+                 .AddTransient<ExceptionHandling>()
 
-            return serviceProvider.GetService<IGetWordsService>();
+                 .Configure<MySettings>(config.GetSection("MySettings"))
+            .BuildServiceProvider();
+
+            return serviceProvider.GetService<IManagerService>();
         }
     }
 }

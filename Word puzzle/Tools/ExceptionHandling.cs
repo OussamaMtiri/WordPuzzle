@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Serilog;
+using System;
 
-namespace Word_puzzle.Tools
+namespace WordPuzzle.Tools
 {
     public class ExceptionHandling
-    {
-        public Exception Exception { get; set; }
+    {        
         public static void ExceptionHandlingCatching(Exception exception)
         {
+            var log = new LoggerConfiguration()
+                  .WriteTo.RollingFile("Logs\\Log.txt")
+                  .CreateLogger();
+            log.Information(exception.Message);
+
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(exception.Message);
             Console.ResetColor();

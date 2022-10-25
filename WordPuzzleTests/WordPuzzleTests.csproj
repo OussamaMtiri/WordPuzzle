@@ -17,4 +17,10 @@
     <ProjectReference Include="..\Word puzzle\WordPuzzle.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appsettingsTest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

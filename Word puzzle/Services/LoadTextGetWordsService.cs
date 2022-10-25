@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Word_puzzle.IServices;
-using Word_puzzle.ITools;
-using Word_puzzle.Models;
-using Word_puzzle.Tools;
+using WordPuzzle.IServices;
+using WordPuzzle.ITools;
+using WordPuzzle.Models;
+using WordPuzzle.Tools;
 
-namespace Word_puzzle.Services
+namespace WordPuzzle.Services
 {
     public class LoadTextGetWordsService : ILoadTextGetWordsService
     {
-       private readonly IFilesInputOutput _filesInputOutput;
+        private readonly IFilesInputOutput _filesInputOutput;
         public LoadTextGetWordsService(IFilesInputOutput filesInputOutput)
         {
-           _filesInputOutput = filesInputOutput;    
+            _filesInputOutput = filesInputOutput;
         }
 
         public string[] LoadTextAndGetWordsList(Argument argument)
         {
             try
             {
-                var wordsArray =_filesInputOutput.LoadText();
+                var wordsArray = _filesInputOutput.LoadText();
                 return GetWordsList((argument, wordsArray));
             }
             catch (Exception e)
