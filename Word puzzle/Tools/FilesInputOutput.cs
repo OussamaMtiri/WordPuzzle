@@ -9,23 +9,21 @@ namespace WordPuzzle.Tools
     public class FilesInputOutput : IFilesInputOutput
     {
         private readonly MySettings _configuration;
-        private readonly Argument _argument;
-        public FilesInputOutput(IOptions<MySettings> options, Argument argument)
+        public FilesInputOutput(IOptions<MySettings> options)
         {
             _configuration = options.Value;
-            _argument = argument;
-        }
+                  }
 
         public string[] LoadText() => File.ReadAllLines($"{_configuration.DataSource}\\{_configuration.DictionaryFile}");
 
-        public void WriteResultToFile(string[] results)
+        public void WriteResultToFile(string[] results,string resultFile)
         {
             try
             {
                 if (!Directory.Exists(_configuration.ResultFolderName))
                     Directory.CreateDirectory(_configuration.ResultFolderName);
 
-                File.WriteAllLines($"{_configuration.ResultFolderName}\\{_argument.ResultFile}.txt", results);
+                File.WriteAllLines($"{_configuration.ResultFolderName}\\{resultFile}.txt", results);
             }
             catch (Exception e)
             {

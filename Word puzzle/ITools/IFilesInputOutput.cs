@@ -3,6 +3,6 @@
     public interface IFilesInputOutput
     {
         public string[] LoadText() ;
-        public void WriteResultToFile(string[] results);
+        public void WriteResultToFile(string[] results,string resultFile);
     }
 }

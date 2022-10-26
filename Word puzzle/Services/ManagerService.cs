@@ -32,7 +32,7 @@ namespace WordPuzzle.Services
                 if (!_userInputInteraction.UserArgumentsValidation(argument))
                     return;
                 var result = _searchService.LoadTextAndGetWordsList(argument);
-                _filesInputOutput.WriteResultToFile(result);
+                _filesInputOutput.WriteResultToFile(result, argument.ResultFile);
             }
             catch (Exception e)
             {

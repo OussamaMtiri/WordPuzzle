@@ -16,7 +16,7 @@ namespace WordPuzzleTests
         {
             //Arrange
             var options = Tools.GetAppSettingOptions();
-            var filesInputOutput = new FilesInputOutput(options, new Argument());
+            var filesInputOutput = new FilesInputOutput(options);
 
             //Act
             var wordsArray = filesInputOutput.LoadText();
@@ -31,7 +31,7 @@ namespace WordPuzzleTests
             //Arrange
             var options = Tools.GetAppSettingOptions();
             Argument argument = new() { StartWord = startWord, EndWord = endWord, ResultFile = resultFile };
-            LoadTextGetWordsService loadTextGetWordsService = new(new FilesInputOutput(options, argument), options);
+            LoadTextGetWordsService loadTextGetWordsService = new(new FilesInputOutput(options), options);
 
             //Act
             var Array = loadTextGetWordsService.LoadTextAndGetWordsList(argument);
