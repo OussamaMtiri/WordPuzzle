@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using WordPuzzle.ITools;
-using WordPuzzle.Models;
 
 namespace WordPuzzle.Tools
 {

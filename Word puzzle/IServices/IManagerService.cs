@@ -2,6 +2,6 @@
 {
     public interface IManagerService
     {
-        public void GetWords();
+        public void GetWordsResult();
     }
 }

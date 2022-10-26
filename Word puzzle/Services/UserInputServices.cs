@@ -20,16 +20,16 @@ namespace WordPuzzle.Services
         public Argument GetUserArguments()
         {
             Console.WriteLine("Please input start word");
-            //_argument.StartWord = Console.ReadLine();
+            //_argument.StartWord = Console.ReadLine(); //TODO 
             _argument.StartWord = "spin";
 
             Console.WriteLine("Please input end word");
-            //_argument.EndWord = Console.ReadLine();
+            //_argument.EndWord = Console.ReadLine(); //TODO 
             _argument.EndWord = "spot";
 
             Console.WriteLine("Please input result file name");
-            //_argument.ResultFile = Console.ReadLine();
-            _argument.ResultFile = "dd";
+            //_argument.ResultFile = Console.ReadLine(); //TODO 
+            _argument.ResultFile = "result file";
             return _argument;
         }
 

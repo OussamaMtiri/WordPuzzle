@@ -24,7 +24,7 @@ namespace WordPuzzle.Services
 
         }
 
-        public void GetWords()
+        public void GetWordsResult()
         {
             try
             {

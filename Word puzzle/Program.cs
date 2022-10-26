@@ -7,7 +7,7 @@ namespace WordPuzzle
         public static void Main()
         {
             var managerService = AppStartup.Setup();
-            managerService.GetWords();
+            managerService.GetWordsResult();
         }
     }
 }
