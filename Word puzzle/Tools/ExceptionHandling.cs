@@ -14,7 +14,7 @@ namespace WordPuzzle.Tools
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(exception.Message);
-            Console.ResetColor();
+            Console.ResetColor();       
         }
     }
 }

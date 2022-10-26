@@ -12,11 +12,11 @@ namespace WordPuzzle.Tools
         public FilesInputOutput(IOptions<MySettings> options)
         {
             _configuration = options.Value;
-                  }
+        }
 
         public string[] LoadText() => File.ReadAllLines($"{_configuration.DataSource}\\{_configuration.DictionaryFile}");
 
-        public void WriteResultToFile(string[] results,string resultFile)
+        public void WriteResultToFile(string[] results, string resultFile)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace WordPuzzle.Tools
             catch (Exception e)
             {
                 ExceptionHandling.ExceptionHandlingCatching(e);
-                return; 
+                return;
             }
             finally
             {

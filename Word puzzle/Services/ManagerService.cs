@@ -13,7 +13,7 @@ namespace WordPuzzle.Services
         private readonly ILoadTextGetWordsService _searchService;
         private readonly IFilesInputOutput _filesInputOutput;
         private readonly IUserInputInteraction _userInputInteraction;
-    
+
 
 
         public ManagerService(ILoadTextGetWordsService searchService, IFilesInputOutput filesInputOutput, IUserInputInteraction userInputInteraction)
@@ -28,10 +28,12 @@ namespace WordPuzzle.Services
         {
             try
             {
-                Argument argument=_userInputInteraction.GetUserArguments();
+                Argument argument = _userInputInteraction.GetUserArguments();
                 if (!_userInputInteraction.UserArgumentsValidation(argument))
                     return;
                 var result = _searchService.LoadTextAndGetWordsList(argument);
+                if (result == null)
+                    return;
                 _filesInputOutput.WriteResultToFile(result, argument.ResultFile);
             }
             catch (Exception e)
