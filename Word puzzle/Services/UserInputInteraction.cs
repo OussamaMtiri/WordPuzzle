@@ -11,7 +11,7 @@ namespace WordPuzzle.Services
 {
     public class UserInputServices : IUserInputInteraction
     {
-        private readonly Argument _argument;
+        private readonly Argument _argument;//TODO 11
         public UserInputServices(Argument argument)
         {
             _argument = argument;
@@ -33,11 +33,11 @@ namespace WordPuzzle.Services
             return _argument;
         }
 
-        public bool UserArgumentsValidation(Argument _argument)
+        public bool UserArgumentsValidation(Argument argument)//TODO 22 argument OR _argument
         {
-            var context = new ValidationContext(_argument, null, null);
+            var context = new ValidationContext(argument, null, null);
             var validationResult = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(_argument, context, validationResult, true);
+            var isValid = Validator.TryValidateObject(argument, context, validationResult, true);
             if (!isValid)
             {
                 foreach (var validation in validationResult)

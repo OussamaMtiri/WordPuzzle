@@ -2,7 +2,6 @@ using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using System.IO;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using WordPuzzle;
 using WordPuzzle.Models;
 using WordPuzzle.Services;
@@ -16,7 +15,7 @@ namespace WordPuzzleTests
         public void LoadText_CalculateLenght_ReturnLenghtOfDocument(int lenthExpected)
         {
             //Arrange
-            var options = GetAppSettingOptions();
+            var options = Tools.GetAppSettingOptions();
             var filesInputOutput = new FilesInputOutput(options, new Argument());
 
             //Act
@@ -30,9 +29,9 @@ namespace WordPuzzleTests
         public void GetWordsList_Count_ReturnWordsCount(string startWord, string endWord, string resultFile, int lenthExpected)
         {
             //Arrange
-            var options = GetAppSettingOptions();
+            var options = Tools.GetAppSettingOptions();
             Argument argument = new() { StartWord = startWord, EndWord = endWord, ResultFile = resultFile };
-            LoadTextGetWordsService loadTextGetWordsService = new(new FilesInputOutput(options, argument));
+            LoadTextGetWordsService loadTextGetWordsService = new(new FilesInputOutput(options, argument), options);
 
             //Act
             var Array = loadTextGetWordsService.LoadTextAndGetWordsList(argument);
@@ -53,14 +52,6 @@ namespace WordPuzzleTests
 
             //Assert
             Assert.AreNotEqual(true, isValid);
-        }
-
-        public static IOptions<MySettings> GetAppSettingOptions()
-        {
-            string appsettingsJson = File.ReadAllText($"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\appsettingsTest.json");
-            var mySetting = JsonSerializer.Deserialize<MySettings>(appsettingsJson);
-            return Options.Create(mySetting);
-
         }
     }
 }

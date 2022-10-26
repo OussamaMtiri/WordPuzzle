@@ -28,11 +28,10 @@ namespace WordPuzzle.Services
         {
             try
             {
-                //throw new ArgumentNullException();
-                Argument _argument=_userInputInteraction.GetUserArguments();
-                if (!_userInputInteraction.UserArgumentsValidation(_argument))
+                Argument argument=_userInputInteraction.GetUserArguments();
+                if (!_userInputInteraction.UserArgumentsValidation(argument))
                     return;
-                var result = _searchService.LoadTextAndGetWordsList(_argument);
+                var result = _searchService.LoadTextAndGetWordsList(argument);
                 _filesInputOutput.WriteResultToFile(result);
             }
             catch (Exception e)

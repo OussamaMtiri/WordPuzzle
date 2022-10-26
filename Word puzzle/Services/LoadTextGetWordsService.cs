@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WordPuzzle.IServices;
@@ -11,9 +12,11 @@ namespace WordPuzzle.Services
     public class LoadTextGetWordsService : ILoadTextGetWordsService
     {
         private readonly IFilesInputOutput _filesInputOutput;
-        public LoadTextGetWordsService(IFilesInputOutput filesInputOutput)
+        private readonly MySettings _configuration;
+        public LoadTextGetWordsService(IFilesInputOutput filesInputOutput, IOptions<MySettings> options)
         {
             _filesInputOutput = filesInputOutput;
+            _configuration = options.Value;
         }
 
         public string[] LoadTextAndGetWordsList(Argument argument)
@@ -21,7 +24,7 @@ namespace WordPuzzle.Services
             try
             {
                 var wordsArray = _filesInputOutput.LoadText();
-                return GetWordsList((argument, wordsArray));
+                return GetWordsList(argument, wordsArray);
             }
             catch (Exception e)
             {
@@ -30,13 +33,11 @@ namespace WordPuzzle.Services
             }
         }
 
-        public string[] GetWordsList((Argument Argument, string[] WordsArray) tuple)
-        {    //Example of Tuple(Not Needed)
-            Argument argument = tuple.Argument;
-            string[] wordsArray = tuple.WordsArray;
+        public string[] GetWordsList(Argument argument, string[] wordsArray)
+        {         
             int indexStartWord = Array.IndexOf(wordsArray, argument.StartWord);
             int indexEndWord = Array.IndexOf(wordsArray, argument.EndWord);
-            wordsArray = wordsArray.Skip(indexStartWord).Take(indexEndWord - indexStartWord + 1).Where(w => w.Length == 4).ToArray();
+            wordsArray = wordsArray.Skip(indexStartWord).Take(indexEndWord - indexStartWord + 1).Where(w => w.Length == _configuration.WordLength).ToArray();
             List<string> result = new() { argument.StartWord };
             foreach (var item in wordsArray)
             {
