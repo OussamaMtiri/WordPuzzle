@@ -21,7 +21,7 @@ namespace Word_puzzle.Tools
             var config = builder.Build();
 
             var serviceProvider = new ServiceCollection()
-                 .AddTransient<Argument>() //TODO Add??
+                 .AddTransient<Argument>()
                  .AddTransient<IManagerService, ManagerService>()
                  .AddTransient<ILoadTextGetWordsService, LoadTextGetWordsService>()
                  .AddTransient<IFilesInputOutput, FilesInputOutput>()
