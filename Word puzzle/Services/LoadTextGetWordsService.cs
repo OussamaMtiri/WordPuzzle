@@ -34,14 +34,19 @@ namespace WordPuzzle.Services
         }
 
         public string[] GetWordsList(Argument argument, string[] wordsArray)
-        {         
+        {
             int indexStartWord = Array.IndexOf(wordsArray, argument.StartWord);
             int indexEndWord = Array.IndexOf(wordsArray, argument.EndWord);
             wordsArray = wordsArray.Skip(indexStartWord).Take(indexEndWord - indexStartWord + 1).Where(w => w.Length == _configuration.WordLength).ToArray();
             List<string> result = new() { argument.StartWord };
+            string toAdd;
             foreach (var item in wordsArray)
             {
-                result.Add(wordsArray.Skip(Array.IndexOf(wordsArray, item)).Where(w => item.Except(w).Count() == 1).Last());
+                toAdd = wordsArray.Skip(Array.IndexOf(wordsArray, item)).Where(w => item.Except(w).Count() == 1).Last();
+                if (!result.Contains(toAdd))
+                {
+                    result.Add(toAdd);
+                }
                 if (result.Last() == argument.EndWord)
                     break;
             }
