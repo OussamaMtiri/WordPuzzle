@@ -44,9 +44,8 @@ namespace WordPuzzle.Services
             {
                 toAdd = wordsArray.Skip(Array.IndexOf(wordsArray, item)).Where(w => item.Except(w).Count() == 1).Last();
                 if (!result.Contains(toAdd))
-                {
                     result.Add(toAdd);
-                }
+
                 if (result.Last() == argument.EndWord)
                     break;
             }
