@@ -51,8 +51,5 @@ namespace WordPuzzle.Services
             }
             return result.ToArray();
         }
-
-
-
     }
 }
